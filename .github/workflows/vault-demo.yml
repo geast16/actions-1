@@ -1,0 +1,17 @@
+name: Vault Demo
+on:
+  workflow_dispatch:
+
+jobs:
+  echo-vault-secret:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify AWS_API_KEY exists
+        run: |
+          if [[ -z "${{ secrets.AWS_API_KEY }}" ]]; then
+            echo "::error::Secret Not Found"
+            exit 1
+          else
+            echo "::notice::Secret Found"
+            exit 0
+          fi
